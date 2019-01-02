@@ -35,14 +35,21 @@ yargsCmd.usage('Botium Facebook Proxy\n\nUsage: $0 [options]') // eslint-disable
           number: true,
           default: 5000
         })
-        .option('verify', {
-          describe: 'Facebook Verification Token (also read from env variable "BOTIUM_FBPROXY_VERIFY")',
+        .option('verifytoken', {
+          describe: 'Facebook Verification Token (also read from env variable "BOTIUM_FBPROXY_VERIFYTOKEN")',
+          demandOption: true
+        })
+        .option('accesstoken', {
+          describe: 'Facebook Page Acccess Token (also read from env variable "BOTIUM_FBPROXY_ACCESSTOKEN")',
           demandOption: true
         })
         .option('endpoint', {
           describe: 'Facebook Webhook Endpoint (also read from env variable "BOTIUM_FBPROXY_ENDPOINT")',
           demandOption: true,
           default: '/api/botium-connector-fbpagereceiver'
+        })
+        .option('redisurl', {
+          describe: 'Redis connection url (also read from env variable "BOTIUM_FBPROXY_REDISURL")'
         })
     },
     handler: startProxy
