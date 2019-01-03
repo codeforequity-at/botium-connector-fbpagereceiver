@@ -2,7 +2,7 @@
 
 [![NPM](https://nodei.co/npm/botium-connector-fbpagereceiver.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/botium-connector-fbpagereceiver/)
 
-[ ![Codeship Status for codeforequity-at/botium-connector-dialogflow](https://app.codeship.com/projects/1c935480-633f-0136-f02a-52b5f01093c8/status?branch=master)](https://app.codeship.com/projects/296958)
+[ ![Codeship Status for codeforequity-at/botium-connector-fbpagereceiver](https://app.codeship.com/projects/6bffcdf0-f1a7-0136-68b5-1af3614a04bd/status?branch=master)](https://app.codeship.com/projects/320411)
 [![npm version](https://badge.fury.io/js/botium-connector-fbpagereceiver.svg)](https://badge.fury.io/js/botium-connector-fbpagereceiver)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg)]()
 
@@ -99,7 +99,7 @@ When using __Botium Box__:
 
 _Already integrated into Botium Box, no setup required_
 
-## Connecting Dialogflow Agent to Botium
+## Connecting your Facebook Messenger Chatbot to Botium
 
 Open the file _botium.json_ in your working directory and add the Facebook credentials and Redis connection settings.
 
