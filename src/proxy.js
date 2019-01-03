@@ -6,6 +6,14 @@ const request = require('request-promise-native')
 const crypto = require('crypto')
 const debug = require('debug')('botium-fbproxy-proxy')
 
+const mids = {}
+const isDuplicate = (mid) => {
+  const hash = crypto.createHash('md5').update(mid).digest('hex')
+  if (mids[hash]) return true
+  mids[hash] = mid
+  return false
+}
+
 const verifySignature = (appsecret, req, res, buf) => {
   const signature = req.headers['x-hub-signature']
   if (!signature) {
@@ -36,6 +44,15 @@ const userProfileCall = (psid, { accesstoken }) => {
 }
 
 const processEvent = async (event, { redis, ...rest }) => {
+  if (event.message && event.message.mid) {
+    if (isDuplicate(event.message.mid)) {
+      debug(`WARNING: already processed message with mid ${event.message.mid}. Ignoring.`)
+      return
+    }
+  } else {
+    return
+  }
+
   if (event.sender && event.sender.id) {
     try {
       const sender = await userProfileCall(event.sender.id, { ...rest })
