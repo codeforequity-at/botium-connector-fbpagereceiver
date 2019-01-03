@@ -1,0 +1,6 @@
+say hello
+
+#me
+hello
+
+#bot

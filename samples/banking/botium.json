@@ -1,0 +1,13 @@
+{
+  "botium": {
+    "Capabilities": {
+      "PROJECTNAME": "banking",
+      "CONTAINERMODE": "fbpagereceiver",
+      "FBPAGERECEIVER_PAGEID": "...",
+      "FBPAGERECEIVER_TESTUSER": "...",
+      "FBPAGERECEIVER_TESTPASSWORD": "...",
+      "FBPAGERECEIVER_TESTUSER_FULLNAME": "...",
+      "FBPAGERECEIVER_REDISURL": "redis://127.0.0.1:6379"
+    }
+  }
+}
