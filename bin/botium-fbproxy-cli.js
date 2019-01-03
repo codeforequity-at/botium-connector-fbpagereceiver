@@ -40,8 +40,11 @@ yargsCmd.usage('Botium Facebook Proxy\n\nUsage: $0 [options]') // eslint-disable
           demandOption: true
         })
         .option('accesstoken', {
-          describe: 'Facebook Page Acccess Token (also read from env variable "BOTIUM_FBPROXY_ACCESSTOKEN")',
+          describe: 'Facebook Page Access Token (also read from env variable "BOTIUM_FBPROXY_ACCESSTOKEN")',
           demandOption: true
+        })
+        .option('appsecret', {
+          describe: 'Facebook App Secret for request verification (also read from env variable "BOTIUM_FBPROXY_APPSECRET")'
         })
         .option('endpoint', {
           describe: 'Facebook Webhook Endpoint (also read from env variable "BOTIUM_FBPROXY_ENDPOINT")',

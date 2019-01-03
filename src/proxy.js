@@ -3,7 +3,24 @@ const express = require('express')
 const Redis = require('ioredis')
 const bodyParser = require('body-parser')
 const request = require('request-promise-native')
+const crypto = require('crypto')
 const debug = require('debug')('botium-fbproxy-proxy')
+
+const verifySignature = (appsecret, req, res, buf) => {
+  const signature = req.headers['x-hub-signature']
+  if (!signature) {
+    throw new Error('x-hub-signature header empty')
+  }
+  const elements = signature.split('=')
+  const method = elements[0]
+  const signatureHash = elements[1]
+  const expectedHash = crypto.createHmac('sha1', appsecret)
+    .update(buf)
+    .digest('hex')
+  const result = (signatureHash === expectedHash)
+  debug(`verify signature: ${signature} (${method}) => ${result}`)
+  if (!result) throw new Error('x-hub-signature verification failed')
+}
 
 const userProfileCall = (psid, { accesstoken }) => {
   return request({
@@ -72,6 +89,7 @@ const setupEndpoints = ({ app, endpoint, verifytoken, redisurl, ...rest }) => {
       res.sendStatus(403)
     }
   })
+
   app.post(endpoint, (req, res) => {
     if (req.body && req.body.object === 'page') {
       req.body.entry && req.body.entry.forEach(entry => {
@@ -86,11 +104,17 @@ const setupEndpoints = ({ app, endpoint, verifytoken, redisurl, ...rest }) => {
   })
 }
 
-const startProxy = ({ port, endpoint, ...rest }) => {
+const startProxy = ({ port, endpoint, appsecret, ...rest }) => {
   const app = express()
 
-  app.use(bodyParser.json())
-  app.use(bodyParser.urlencoded({ extended: true }))
+  if (appsecret) {
+    app.use(endpoint, bodyParser.json({
+      verify: verifySignature.bind(null, appsecret)
+    }))
+  } else {
+    app.use(endpoint, bodyParser.json())
+  }
+  app.use(endpoint, bodyParser.urlencoded({ extended: true }))
 
   setupEndpoints({ app, endpoint, ...rest })
 
@@ -102,5 +126,6 @@ const startProxy = ({ port, endpoint, ...rest }) => {
 
 module.exports = {
   setupEndpoints,
-  startProxy
+  startProxy,
+  verifySignature
 }
