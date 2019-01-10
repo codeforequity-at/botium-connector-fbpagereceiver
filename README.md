@@ -59,7 +59,7 @@ _--redisurl_: Redis connection url
 Obviously, you are already familiar with the Facebook developer console to register a webhook, so you already know where to get those tokens and secrets - otherwise, start to learn [here](https://developers.facebook.com/docs/messenger-platform/webhook/)
 
 Botium is providing the service, but you have to take care for connectivity and process management yourself:
-* If your server is not reachable from the internet, consider to use a service like [ngrok](https://ngrok.com/) for publishing your endpoint (If you use botium, start it on the port of the Botiu) - __Attentions: Facebook accepts HTTPS secured endpoints only!__
+* If your server is not reachable from the internet, consider to use a service like [ngrok](https://ngrok.com/) for publishing your endpoint (If you use ngrok start it on the port of the Webhook Service) - __Attentions: Facebook accepts HTTPS secured endpoints only!__
 * For process management, logging, monitoring we recommend to use [pm2](https://pm2.keymetrics.io)
 
 ## Register Botium webhook service as "Secondary Receiver"
@@ -75,7 +75,7 @@ Here are the steps how to register the Botium webhook service as a Secondary Rec
     2. The _verification token_ has to be the same as handed to the Botium webhook service (with _--verifytoken_ parameter)
     3. Events to subscribe to: messages, messaging_postbacks, message_echoes, standby
 6. Now navigate to the Facebook page the chatbot is connected to and open the page settings, section _Messenger Platform_
-7. In the _Subscribed Apps_ section, make sure that the actual chatbot app has the role _Primary Receiver_ while the newly created app has the role _Secondary Receiver_.
+7. In the _Subscribed Apps_ section, make sure that the actual chatbot app has the role _Primary Receiver_ while the newly created app has the role _Secondary Receiver_. (If you dont see a chatbot app here, check Facebook developer console -> Messenger -> Settings -> Webhooks -> Select a page to subscribe your webhook to the page events. App must be subscribed to the page here.)
 
 ## Install Botium and Facebook Connector
 
