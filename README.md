@@ -28,12 +28,14 @@ It can be used as any other Botium connector with all Botium Stack components:
 
 * __Node.js and NPM__
 * a __Facebook Messenger__ chatbot, and a facebook developer account with administrative rights
-* a __Redis__ instance (free tier for example from [redislabs](https://redislabs.com/) will do as a starter)
+* a __Redis__ instance (Cloud hosted free tier for example from [redislabs](https://redislabs.com/) will do as a starter)
 * a __project directory__ on your workstation to hold test cases and Botium configuration
 
 ## Install and Run the Botium webhook service
 
-The Botium webhook service is running outside of Botium as a background service, as it has to be always-on - otherwise Facebook servers will quit transmitting messages to it.
+The Botium webhook service is responsible for receiving part, gots messages from Messenger, and puts them into Redis.
+
+It is running outside of Botium as a background service, as it has to be always-on - otherwise Facebook servers will quit transmitting messages to it.
 
 Installation with NPM:
 
@@ -57,7 +59,7 @@ _--redisurl_: Redis connection url
 Obviously, you are already familiar with the Facebook developer console to register a webhook, so you already know where to get those tokens and secrets - otherwise, start to learn [here](https://developers.facebook.com/docs/messenger-platform/webhook/)
 
 Botium is providing the service, but you have to take care for connectivity and process management yourself:
-* If your server is not reachable from the internet, consider to use a service like [ngrok](https://ngrok.com/) for publishing your endpoint - __Attentions: Facebook accepts HTTPS secured endpoints only!__
+* If your server is not reachable from the internet, consider to use a service like [ngrok](https://ngrok.com/) for publishing your endpoint (If you use botium, start it on the port of the Botiu) - __Attentions: Facebook accepts HTTPS secured endpoints only!__
 * For process management, logging, monitoring we recommend to use [pm2](https://pm2.keymetrics.io)
 
 ## Register Botium webhook service as "Secondary Receiver"
@@ -82,6 +84,7 @@ When using __Botium CLI__:
 ```
 > npm install -g botium-cli
 > npm install -g botium-connector-fbpagereceiver
+> cd <your working dir>
 > botium-cli init
 > botium-cli run
 ```
