@@ -1,3 +1,5 @@
+# Attention: Current Facebook Messenger Platform API version left this Botium Connector not working. There is another Botium Connector for testing Facebook Chatbot Webhooks available now: https://github.com/codeforequity-at/botium-connector-fbwebhook
+
 # Botium Connector for Facebook Messenger Bots 
 
 [![NPM](https://nodei.co/npm/botium-connector-fbpagereceiver.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/botium-connector-fbpagereceiver/)
